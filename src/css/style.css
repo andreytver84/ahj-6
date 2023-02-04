@@ -1,0 +1,20 @@
+body {
+    color: #999;
+    font-family: 'Arial';
+    line-height: 100%;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+.title-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+
+  
