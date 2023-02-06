@@ -47,13 +47,8 @@ const setLocalStorage = function (col) {
   const tasks = col.querySelectorAll(".task");
   const taskText = [];
   tasks.forEach((task) => taskText.push(task.textContent));
-  //localStorage.clear();
   localStorage.setItem(col.id, JSON.stringify(taskText));
 };
-
-//setLocalStorage(todo);
-//setLocalStorage(progress);
-//setLocalStorage(done);
 
 const renderTask = function (col) {
   const data = localStorage.getItem(col.id);
@@ -101,9 +96,16 @@ allCols.forEach((col) => {
 
     console.log(mouseUpTask, currentParentTasksBody);
 
-    currentParentTasksBody.insertBefore(actualEl, mouseUpTask);
+    if (mouseUpTask.classList.contains("task")) {
+      currentParentTasksBody.insertBefore(actualEl, mouseUpTask);
+    } else {
+      currentParentTasksBody.appendChild(actualEl);
+    }
 
     actualEl = undefined;
+
+    setLocalStorage(col);
+    setLocalStorage(currentParentTasksBody.closest(".col"));
 
     document.documentElement.removeEventListener("mouseup", onMouseUp);
     document.documentElement.removeEventListener("mouseover", onMouseOver);
