@@ -79,6 +79,40 @@ allCols.forEach((col) => {
       addTask(e.target);
     } else if (e.target.classList.contains("remove-task")) {
       removeTask(e.target);
-    }
+    } 
   });
+
+  const tasks = col.querySelector('.tasks-body');  
+  let actualEl;
+
+  const onMouseOver = (e) => {
+    actualEl.style.top = e.clientY + 'px';
+    actualEl.style.left = e.clientX + 'px';
+  }
+
+  const onMouseUp = (e) => {
+    const mouseUpTask = e.target;
+    const currentParentTasksBody = mouseUpTask.closest('.tasks-body');
+
+    console.log(mouseUpTask, currentParenTaskBody);
+
+    currentParentTasksBody.insertBefore(actualEl, mouseUpTask);
+
+    actualEl.classList.remove('dragged');
+    actualEl = undefined;
+
+    document.documentElement.removeEventListener('mouseup', onMouseUp);
+    document.documentElement.removeEventListener('mouseover', onMouseOver);
+  }
+
+  tasks.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    if (e.target.classList.contains("task")) {
+      actualEl = e.target;
+      actualEl.classList.add('dragged');
+    }
+    document.documentElement.addEventListener('mouseup', onMouseUp);
+    document.documentElement.addEventListener('mouseover', onMouseOver);
+  });
+
 });
