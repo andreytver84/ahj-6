@@ -92,13 +92,17 @@ allCols.forEach((col) => {
 
   const onMouseUp = (e) => {
     const mouseUpTask = e.target;
-    const currentParentTasksBody = mouseUpTask.closest(".tasks-body");
+    const currentParentTasksBody = mouseUpTask.closest(".tasks-body")
+      ? mouseUpTask.closest(".tasks-body")
+      : tasks;
+
+    actualEl.classList.remove("dragged");
+    actualEl.style = "";
 
     console.log(mouseUpTask, currentParentTasksBody);
 
     currentParentTasksBody.insertBefore(actualEl, mouseUpTask);
 
-    actualEl.classList.remove("dragged");
     actualEl = undefined;
 
     document.documentElement.removeEventListener("mouseup", onMouseUp);
